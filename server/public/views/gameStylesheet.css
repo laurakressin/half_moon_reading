@@ -1,0 +1,49 @@
+html, body {
+    height: 100%;
+}
+
+.sky {
+    background-color: lightskyblue;
+    height: 60%;
+}
+
+.selectedWord {
+    height: 30%;
+}
+
+.answers {
+    background-color: darkgreen;
+    height: 40%;
+}
+
+p {
+    background-color: white;
+    height: 100px;
+    width: 100px;
+    font-size: 75px;
+    text-align: center;
+}
+
+p, [class="2"] {
+    margin: auto;
+}
+
+a {
+    height: 300px;
+    width: 300px;
+    background-color: white;
+}
+
+.image {
+    height: 70%;
+}
+
+.row {
+    padding-top: 3%;
+    padding-bottom: 5%;
+    margin: auto;
+}
+
+.race {
+    background-color: black;
+}

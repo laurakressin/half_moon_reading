@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="TheTripApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="/vendor/jquery/dist/jquery.min.js"></script>
+    <link href="/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/vendor/angular/angular.min.js"></script>
+    <script src="/assets/scripts/app.min.js"></script>
+    <link href="/views/gameStylesheet.css" rel="stylesheet">
+    <title></title>
+</head>
+<body ng-controller="WordController as wController">
+    <div class="sky">
+        <div class="selectedWord row">
+            <div class="col-md-1 col-md-offset-4">
+                <p class="1">{{wController.word[0]}}</p>
+            </div>
+            <div class="col-md-2">
+                <p class="2">{{wController.word[1]}}</p>
+            </div>
+            <div class="col-md-1">
+                <p class="3">{{wController.word[2]}}</p>
+            </div>
+        </div>
+        <div class="image row">
+            <a class="col-md-12"></a>
+        </div>
+    </div>
+
+    <div class="answers row">
+        <div class="col-md-2 col-md-offset-3">
+            <p id="1">{{wController.shuffledArray[0]}}</p>
+        </div>
+        <div class="col-md-2">
+            <p id="2">{{wController.shuffledArray[1]}}</p>
+        </div>
+        <div class="col-md-2">
+            <p id="3">{{wController.shuffledArray[2]}}</p>
+        </div>
+    </div>
+    <div class="race">
+    </div>
+</body>
+</html>
