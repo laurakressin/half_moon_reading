@@ -10,35 +10,38 @@
     <link href="/views/gameStylesheet.css" rel="stylesheet">
     <title></title>
 </head>
-<body ng-controller="WordController as wController">
-    <div class="sky">
-        <div class="selectedWord row">
-            <div class="col-md-1 col-md-offset-4">
-                <p class="1">{{wController.word[0]}}</p>
+<body ng-controller="WordController">
+        <div class="sky">
+            <div class="selectedWord row">
+                <div class="col-md-1 col-md-offset-4">
+                    <p class="0">{{word[0]}}</p>
+                </div>
+                <div class="col-md-2">
+                    <p class="1">{{word[1]}}</p>
+                </div>
+                <div class="col-md-1">
+                    <p class="2">{{word[2]}}</p>
+                </div>
+            </div>
+            <div class="image row col-md-12">
+                <img ng-src="/assets{{image}}">
+            </div>
+        </div>
+
+        <div class="answers row">
+            <div class="col-md-2 col-md-offset-3">
+                <p id="0" ng-click="correctCounter(shuffledArray[0])">{{shuffledArray[0]}}</p>
             </div>
             <div class="col-md-2">
-                <p class="2">{{wController.word[1]}}</p>
+                <p id="1" ng-click="correctCounter(shuffledArray[1])">{{shuffledArray[1]}}</p>
             </div>
-            <div class="col-md-1">
-                <p class="3">{{wController.word[2]}}</p>
+            <div class="col-md-2">
+                <p id="2" ng-click="correctCounter(shuffledArray[2])">{{shuffledArray[2]}}</p>
+            </div>
+            <div class="col-md-1 col-md-offset-2">
+                <p id="correct">{{numCorrect}}/15</p>
             </div>
         </div>
-        <div class="image row">
-            <a class="col-md-12"></a>
-        </div>
-    </div>
-
-    <div class="answers row">
-        <div class="col-md-2 col-md-offset-3">
-            <p id="1">{{wController.shuffledArray[0]}}</p>
-        </div>
-        <div class="col-md-2">
-            <p id="2">{{wController.shuffledArray[1]}}</p>
-        </div>
-        <div class="col-md-2">
-            <p id="3">{{wController.shuffledArray[2]}}</p>
-        </div>
-    </div>
     <div class="race">
     </div>
 </body>

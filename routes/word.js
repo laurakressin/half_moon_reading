@@ -5,7 +5,7 @@ var threeLtrWords = require('../models/sendThreeWord');
 var words = require('../models/words/threeLtr.json');
 
 router.get('/getWords', function(request, response){
-    console.log("Other", threeLtrWords);
+    //console.log("Other", threeLtrWords);
     response.jsonp(threeLtrWords);
     //threeLtrWords.find({}, function(err, words){
     //    if (err) throw err;

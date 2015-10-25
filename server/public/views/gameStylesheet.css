@@ -1,5 +1,6 @@
 html, body {
     height: 100%;
+    background-color: darkgreen;
 }
 
 .sky {
@@ -13,7 +14,7 @@ html, body {
 
 .answers {
     background-color: darkgreen;
-    height: 40%;
+    height: 20%;
 }
 
 p {
@@ -28,6 +29,12 @@ p, [class="2"] {
     margin: auto;
 }
 
+p#correct {
+    background-color: darkgreen;
+    color: black;
+    font-size: 45px;
+}
+
 a {
     height: 300px;
     width: 300px;
@@ -38,6 +45,12 @@ a {
     height: 70%;
 }
 
+img {
+    display: block;
+    margin: auto;
+    height: 100%;
+}
+
 .row {
     padding-top: 3%;
     padding-bottom: 5%;
@@ -46,4 +59,5 @@ a {
 
 .race {
     background-color: black;
+    height: 10%;
 }
