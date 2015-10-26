@@ -11,7 +11,8 @@
     <title></title>
 </head>
 <body ng-controller="WordController">
-        <div class="sky">
+    <div class="sky">
+        <div ng-show="!isComplete(numAnswered)">
             <div class="selectedWord row">
                 <div class="col-md-1 col-md-offset-4">
                     <p class="0">{{word[0]}}</p>
@@ -23,12 +24,23 @@
                     <p class="2">{{word[2]}}</p>
                 </div>
             </div>
-            <div class="image row col-md-12">
-                <img ng-src="/assets{{image}}">
+        </div>
+        <div class="image row col-md-12" ng-show="!isComplete(numAnswered)">
+            <img ng-src="/assets{{image}}">
+        </div>
+        <div class="complete row" ng-show="isComplete(numAnswered)">
+            <div class="completeText">
+                <div class="mega">Congratulations, you {{success}}!!</div><br>Good job trying your best!<br>Do you want to play again?
+                <div class="row">
+                    <button class="done"><span class="glyphicon glyphicon-remove"></span>I'm done.</button>
+                    <button ng-click="again()"><span class="glyphicon glyphicon-play"></span>Play again!</button>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div class="answers row">
+    <div class="answers row">
+        <div ng-show="!isComplete(numAnswered)">
             <div class="col-md-2 col-md-offset-3">
                 <p id="0" ng-click="correctCounter(shuffledArray[0])">{{shuffledArray[0]}}</p>
             </div>
@@ -40,9 +52,14 @@
             </div>
             <div class="col-md-1 col-md-offset-2">
                 <p id="correct">{{numCorrect}}/15</p>
+
             </div>
         </div>
+    </div>
     <div class="race">
+        <img class="first" src="/assets/images/runner.png" ng-style="{'left': firstLeft}">
+        <img class="second" src="/assets/images/sprinter.png" ng-style="{'left': secondLeft}">
+        <img class="third" src="/assets/images/flyer.png" ng-style="{'left': thirdLeft}">
     </div>
 </body>
 </html>

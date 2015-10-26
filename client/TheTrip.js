@@ -1,16 +1,12 @@
 var app = angular.module("TheTripApp", []);
 
-app.controller("WordController", ['$scope', '$http', '$timeout', function($scope, $http, $timeout){
+app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', function($scope, $http, $timeout, $interval){
     //var for http data array
     $scope.dataArray = [];
 
     //array of all letters
     var consonantArray = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"];
-
     var vowelArray = ["a", "e", "i", "o", "u"];
-
-    //array of existing indexes
-    var remainingWords = [];
 
     //empty array to store used indexes
     var incorrectWords = [];
@@ -19,15 +15,23 @@ app.controller("WordController", ['$scope', '$http', '$timeout', function($scope
     var numIncorrect = 0;
 
     //number of problems answered
-    var numAnswered = 0;
+    $scope.numAnswered = 0;
 
     //var for random index
     var randIndex = 0;
 
+    //scopes for monster positions
+    var firstPerc = -1;
+    var secondPerc = -2;
+    var thirdPerc = 1;
+
+
+
+
+
     //random number function to pick random word from function
     randomWord = function(data) {
         var selectedIndex = Math.floor(Math.random() * data.length);
-        //console.log("Index chosen", chosenIndex);
         return selectedIndex;
     };
 
@@ -40,22 +44,16 @@ app.controller("WordController", ['$scope', '$http', '$timeout', function($scope
     //appends new word, pic and answers on page
     var newWord = function(){
 
-        //console.log("chosen word", $scope.word);
-
         //pulling random letter from word
-        if(numAnswered%3 == 0 && incorrectWords.length !== 0 || incorrectWords.length >= 3){
+        if($scope.numAnswered%3 == 0 && incorrectWords.length !== 0 || incorrectWords.length >= 3){
             randIndex = incorrectWords.shift();
-            console.log("using incorrect word");
         } else {
             randIndex = randomWord($scope.dataArray);
-            console.log("using correct word");
         }
 
         $scope.word = $scope.dataArray[randIndex].word;
         chosenIndex = randomLetter($scope.word);
         chosenLtr = $scope.word[chosenIndex];
-
-        //console.log("chosenLtr", chosenLtr);
 
         //applying empty string to chosen index of chosen word
         String.prototype.replaceAt = function (index, character) {
@@ -63,7 +61,6 @@ app.controller("WordController", ['$scope', '$http', '$timeout', function($scope
         };
         $scope.word = $scope.word.replaceAt(chosenIndex, " ");
         $scope.word[chosenIndex] = " ";
-        //console.log("modified word", $scope.word);
 
         //choosing multiple answers
         var multiChoiceArray = [];
@@ -77,7 +74,6 @@ app.controller("WordController", ['$scope', '$http', '$timeout', function($scope
                     var newLtr = vowelArray[randomLetter(vowelArray)];
                 }
                 multiChoiceArray.push(newLtr);
-                //console.log("ran vowel");
             }
 
             //no repeat consonants
@@ -88,10 +84,8 @@ app.controller("WordController", ['$scope', '$http', '$timeout', function($scope
                     var newLtr = consonantArray[randomLetter(consonantArray)];
                 }
                 multiChoiceArray.push(newLtr);
-                //console.log("ran consonant");
             }
         }
-        //console.log("multi Choice array", multiChoiceArray);
 
         //shuffling array function
         function shuffle(array) {
@@ -125,24 +119,69 @@ app.controller("WordController", ['$scope', '$http', '$timeout', function($scope
     //function to push incorrect
         var pushIncorrect = function(thing) {
             incorrectWords.push(thing)
-            console.log("Pushed incorrect word");
         };
 
     //function to count correct
         var countCorrect = function() {
             $scope.numCorrect +=1;
-            numAnswered +=1;
-            console.log("added one to correct counter");
         };
 
     //function to count incorrect
         var countIncorrect = function() {
             numIncorrect +=1;
-            numAnswered +=1;
-            console.log("added one to incorrect counter");
         };
 
-    //http.get for threeLtr.json
+    //hides content, asks player to play again or finish
+        $scope.isComplete = function(num){
+            raceResults($scope.numCorrect, $scope.numAnswered);
+            if(num >= 3){
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+    //shows correct vs. tie
+        var raceResults = function(correct, all){
+            if(correct + all == all){
+                $scope.success = "tied";
+            } else {
+                $scope.success = "won";
+            }
+            return $scope.success;
+        };
+
+    //moves monsters on click
+        var move = function() {
+            firstPerc += .2;
+            secondPerc += .2;
+            thirdPerc += .2;
+            $scope.firstLeft = firstPerc + '%';
+            $scope.secondLeft = secondPerc + '%';
+            $scope.thirdLeft = thirdPerc + '%';
+            $scope.stop += 1;
+            console.log('stop', $scope.stop);
+
+        };
+
+        $scope.stop = 0;
+
+        var interval = function() {
+            $interval(move, 100, 10)
+        };
+
+        var moveWinner = function() {
+            secondPerc += .2;
+            $scope.secondLeft = secondPerc + '%';
+        };
+
+        var winner = function() {
+            $interval(moveWinner, 100, 10)
+        };
+
+
+
+    //http.et for threeLtr.json
     $http({
         method: 'GET',
         url: '/word/getWords'
@@ -157,26 +196,38 @@ app.controller("WordController", ['$scope', '$http', '$timeout', function($scope
         //click event that allows correct letter to be put in word
             $scope.numCorrect = 0;
             $scope.correctCounter = function(letter) {
+                $scope.numAnswered += 1;
                 if(letter == chosenLtr){
                     countCorrect();
-                    console.log("incorrectArray remains = ", incorrectWords);
                     $scope.image = "/images/thumbs-up.svg";
-                    console.log("chosenIndex", chosenIndex);
-                    $scope.word = $scope.word.replaceAt(chosenIndex, chosenLtr);
+                    winner();
                 } else {
                     pushIncorrect(randIndex);
-                    console.log("Got one wrong = ", incorrectWords);
                     countIncorrect();
-                    console.log("Incorrect counter = ", numIncorrect);
                 }
-                $timeout(newWord, 2000);
+                $scope.isComplete($scope.numAnswered, $scope.numCorrect);
+                $timeout(newWord, 1000);
+
+                //moves monsters on click
+                var promise = interval();
+
+            };
+        //click to start over
+            $scope.again = function(){
+                $scope.numAnswered = 0;
+                $scope.numCorrect = 0;
+                incorrectWords = [];
+                firstPerc = -1;
+                secondPerc = -2;
+                thirdPerc = 1;
+                $scope.firstLeft = firstPerc + '%';
+                $scope.secondLeft = secondPerc + '%';
+                $scope.thirdLeft = thirdPerc + '%';
+                newWord();
             };
 
-        //hides content, asks player to play again or finish
-            if (numIncorrect >=15) {
-
-            }
     });
+
 
 
 }]);

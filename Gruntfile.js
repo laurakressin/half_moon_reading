@@ -20,6 +20,9 @@ module.exports = function(grunt) {
                     "angular/angular.min.js.map",
                     "bootstrap/dist/css/bootstrap.min.css",
                     "bootstrap/dist/js/bootstrap.min.js",
+                    "bootstrap/dist/fonts/glyphicons-halflings-regular.woff2",
+                    "bootstrap/dist/fonts/glyphicons-halflings-regular.woff",
+                    "bootstrap/dist/fonts/glyphicons-halflings-regular.ttf",
                     "jquery/dist/jquery.min.js",
                     "jquery/dist/jquery.min.map"
                 ],
