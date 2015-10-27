@@ -15,7 +15,7 @@ app.use(express.static(__dirname + '/server/public'));
 app.use('/word', getWords);
 
 app.get('/', function(request, response){
-    response.sendFile(__dirname +'/server/public/views/game.html')
+    response.sendFile(__dirname +'/server/public/views/pickMonster.html')
 });
 
 app.use(function(request, response, next){

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="TheTripApp">
+<head>
+    <meta charset="UTF-8">
+    <title>MonsterDash</title>
+    <script src="/vendor/jquery/dist/jquery.min.js"></script>
+    <link href="/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/vendor/angular/angular.min.js"></script>
+    <script src="/vendor/angular-route/angular-route.min.js"></script>
+    <script src="/assets/scripts/app.min.js"></script>
+    <script src="/assets/scripts/client/TheTrip.js"></script>
+    <script src="/assets/scripts/client/pickMonster"></script>
+</head>
+<body ng-controller="WordController">
+    <h1>Welcome to Monster Dash!</h1>
+    <h2>Pick your monster.</h2>
+    <div class="row" ng-controller="MonsterController">
+        <a href="/views/game.html"><img ng-click="pickedMonsterFir()" src="/assets/images/runner.png"></a>
+        <a href="/views/game.html"><img ng-click="pickedMonsterSec()"src="/assets/images/sprinter.png"></a>
+        <a href="/views/game.html"><img ng-click="pickedMonsterThir()" src="/assets/images/flyer.png"></a>
+    </div>
+</body>
+</html>

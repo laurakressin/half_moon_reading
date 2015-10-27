@@ -1,4 +1,4 @@
-var app = angular.module("TheTripApp", []);
+var app = angular.module("TheTripApp", ['ngRoute']);
 
 app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', function($scope, $http, $timeout, $interval){
     //var for http data array
@@ -65,6 +65,7 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', fu
         //choosing multiple answers
         var multiChoiceArray = [];
         multiChoiceArray.push(chosenLtr);
+
 
         //no repeat vowels
         if (chosenLtr == "a" || chosenLtr == "e" || chosenLtr == "i" || chosenLtr == "o" || chosenLtr == "u") {
@@ -151,6 +152,12 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', fu
             return $scope.success;
         };
 
+    //replaces correct letter if answer is correct
+    var replaceLtr = function() {
+        $scope.word = $scope.word.replaceAt(chosenIndex, chosenLtr);
+        $scope.word[chosenIndex] = chosenLtr;
+    };
+
     //moves monsters on click
         var move = function() {
             firstPerc += .2;
@@ -159,12 +166,7 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', fu
             $scope.firstLeft = firstPerc + '%';
             $scope.secondLeft = secondPerc + '%';
             $scope.thirdLeft = thirdPerc + '%';
-            $scope.stop += 1;
-            console.log('stop', $scope.stop);
-
         };
-
-        $scope.stop = 0;
 
         var interval = function() {
             $interval(move, 100, 10)
@@ -179,6 +181,28 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', fu
             $interval(moveWinner, 100, 10)
         };
 
+    //specifying which monster is going ahead
+        //runner selected
+        $scope.pickedMonsterFir = function() {
+            $scope.secondRunner = "/assets/images/runner.png";
+            $scope.firstRunner = "/assets/images/sprinter.png";
+            $scope.thirdRunner = "/assets/images/flyer.png";
+            console.log("1st", $scope.firstRunner);
+            console.log("2nd", $scope.secondRunner);
+            console.log("3rd", $scope.thirdRunner);
+        };
+        //sprinter selected
+        $scope.pickedMonsterSec = function() {
+            $scope.secondRunner = "/assets/images/sprinter.png";
+            $scope.firstRunner = "/assets/images/runner.png";
+            $scope.thirdRunner = "/assets/images/flyer.png";
+        };
+        //flyer selected
+        $scope.pickedMonsterThir = function() {
+            $scope.secondRunner = "/assets/images/flyer.png";
+            $scope.firstRunner = "/assets/images/sprinter.png";
+            $scope.thirdRunner = "/assets/images/runner.png";
+        };
 
 
     //http.et for threeLtr.json
@@ -199,6 +223,7 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', fu
                 $scope.numAnswered += 1;
                 if(letter == chosenLtr){
                     countCorrect();
+                    replaceLtr();
                     $scope.image = "/images/thumbs-up.svg";
                     winner();
                 } else {
@@ -231,3 +256,21 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', fu
 
 
 }]);
+
+app.controller("MonsterController", ['$scope', function($scope){
+
+
+    app.config(function($routeProvider, $locationProvider){
+        $routeProvider
+            .when('/game',{
+                templateUrl: '/views/game.html',
+                controller: 'WordController'
+            })
+            .when('/pick',{
+                templateUrl: '/views/pickMonster.html'
+            });
+        $locationProvider.html5Mode(true);
+    });
+
+}]);
+

@@ -6,7 +6,10 @@
     <link href="/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/vendor/angular/angular.min.js"></script>
+    <script src="/vendor/angular-route/angular-route.min.js"></script>
     <script src="/assets/scripts/app.min.js"></script>
+    <script src="/assets/scripts/client/pickMonster"></script>
+    <script src="/assets/scripts/client/TheTrip.js"></script>
     <link href="/views/gameStylesheet.css" rel="stylesheet">
     <title></title>
 </head>
@@ -32,7 +35,7 @@
             <div class="completeText">
                 <div class="mega">Congratulations, you {{success}}!!</div><br>Good job trying your best!<br>Do you want to play again?
                 <div class="row">
-                    <button class="done"><span class="glyphicon glyphicon-remove"></span>I'm done.</button>
+                    <a href="/views/pickMonster.html"><button class="done"><span class="glyphicon glyphicon-remove"></span>I'm done.</button></a>
                     <button ng-click="again()"><span class="glyphicon glyphicon-play"></span>Play again!</button>
                 </div>
             </div>
@@ -57,9 +60,9 @@
         </div>
     </div>
     <div class="race">
-        <img class="first" src="/assets/images/runner.png" ng-style="{'left': firstLeft}">
-        <img class="second" src="/assets/images/sprinter.png" ng-style="{'left': secondLeft}">
-        <img class="third" src="/assets/images/flyer.png" ng-style="{'left': thirdLeft}">
+        <img class="first" src={{firstRunner}} ng-style="{'left': firstLeft}">
+        <img class="second" src="{{secondRunner}} ng-style="{'left': secondLeft}">
+        <img class="third" src={{thirdRunner}} ng-style="{'left': thirdLeft}">
     </div>
 </body>
 </html>
