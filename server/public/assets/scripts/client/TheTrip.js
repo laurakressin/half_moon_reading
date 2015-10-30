@@ -1,6 +1,6 @@
 var app = angular.module("TheTripApp", ['ngRoute']);
 
-app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', function($scope, $http, $timeout, $interval){
+app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', '$location', function($scope, $http, $timeout, $interval, $location){
     //var for http data array
     $scope.dataArray = [];
 
@@ -8,11 +8,17 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', fu
     var consonantArray = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"];
     var vowelArray = ["a", "e", "i", "o", "u"];
 
+    //number of questions asked in round
+    $scope.numAsked = 5;
+
     //empty array to store used indexes
     var incorrectWords = [];
 
     //incorrect answer counter
     var numIncorrect = 0;
+
+    //array of last 5 words used
+    var usedWords = [];
 
     //number of problems answered
     $scope.numAnswered = 0;
@@ -21,9 +27,65 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', fu
     var randIndex = 0;
 
     //scopes for monster positions
-    var firstPerc = -1;
-    var secondPerc = -2;
-    var thirdPerc = 1;
+    $scope.firstPerc = 0;
+    $scope.secondPerc = 0;
+    $scope.thirdPerc = 0;
+
+    //defining height and top
+    $scope.firstHeight = "140px";
+    $scope.secondHeight = "140px";
+    $scope.thirdHeight = "140px";
+
+    $scope.firstTop = "675px";
+    $scope.secondTop = "730px";
+    $scope.thirdTop = "761px";
+
+
+
+    //specifying which monster is going ahead
+    //runner selected
+    $scope.pickedMonsterFir = function() {
+        $scope.monster = 1;
+        $scope.secondRunner = "/assets/images/runner.png";
+        $scope.firstRunner = "/assets/images/sprinter.png";
+        $scope.thirdRunner = "/assets/images/flyer.png";
+        $location.path('/game');
+        $scope.firstPerc = -5;
+        $scope.secondPerc = -3;
+        $scope.thirdPerc =0;
+        $scope.firstLeft = $scope.firstPerc + '%';
+        $scope.secondLeft = $scope.secondPerc + '%';
+        $scope.thirdLeft = $scope.thirdPerc + '%';
+    };
+    //sprinter selected
+    $scope.pickedMonsterSec = function() {
+        $scope.monster = 2;
+        $scope.secondRunner = "/assets/images/sprinter.png";
+        $scope.firstRunner = "/assets/images/runner.png";
+        $scope.thirdRunner = "/assets/images/flyer.png";
+        $location.path('/game');
+        $scope.firstPerc = -3;
+        $scope.secondPerc = -5;
+        $scope.thirdPerc = 0;
+        $scope.firstLeft = $scope.firstPerc + '%';
+        $scope.secondLeft = $scope.secondPerc + '%';
+        $scope.thirdLeft = $scope.thirdPerc + '%';
+    };
+    //flyer selected
+    $scope.pickedMonsterThir = function() {
+        $scope.monster = 3;
+        $scope.secondRunner = "/assets/images/flyer.png";
+        $scope.firstRunner = "/assets/images/sprinter.png";
+        $scope.thirdRunner = "/assets/images/runner.png";
+        $location.path('/game');
+        $scope.firstPerc = -5;
+        $scope.secondPerc = 0;
+        $scope.thirdPerc = -3;
+        $scope.firstLeft = $scope.firstPerc + '%';
+        $scope.secondLeft = $scope.secondPerc + '%';
+        $scope.thirdLeft = $scope.thirdPerc + '%';
+        $scope.secondTop = "683px";
+    };
 
 
 
@@ -32,6 +94,17 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', fu
     //random number function to pick random word from function
     randomWord = function(data) {
         var selectedIndex = Math.floor(Math.random() * data.length);
+        //checks for repeats
+        for (var l = 0; l < usedWords.length; l++){
+            if (selectedIndex == l){
+                randomWord(data);
+            }
+        }
+        usedWords.push(selectedIndex);
+        //limits words pushed to used words array
+        if(usedWords.length > 5){
+            usedWords.shift();
+        }
         return selectedIndex;
     };
 
@@ -135,7 +208,7 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', fu
     //hides content, asks player to play again or finish
         $scope.isComplete = function(num){
             raceResults($scope.numCorrect, $scope.numAnswered);
-            if(num >= 3){
+            if(num >= $scope.numAsked){
                 return true;
             } else {
                 return false;
@@ -160,12 +233,12 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', fu
 
     //moves monsters on click
         var move = function() {
-            firstPerc += .2;
-            secondPerc += .2;
-            thirdPerc += .2;
-            $scope.firstLeft = firstPerc + '%';
-            $scope.secondLeft = secondPerc + '%';
-            $scope.thirdLeft = thirdPerc + '%';
+            $scope.firstPerc += (((40/$scope.numAsked)/10));
+            $scope.secondPerc += (((40/$scope.numAsked)/10));
+            $scope.thirdPerc += (((40/$scope.numAsked)/10));
+            $scope.firstLeft = $scope.firstPerc + '%';
+            $scope.secondLeft = $scope.secondPerc + '%';
+            $scope.thirdLeft = $scope.thirdPerc + '%';
         };
 
         var interval = function() {
@@ -173,36 +246,15 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', fu
         };
 
         var moveWinner = function() {
-            secondPerc += .2;
-            $scope.secondLeft = secondPerc + '%';
+            $scope.secondPerc += (((50/$scope.numAsked)/10));
+            $scope.secondLeft = $scope.secondPerc + '%';
         };
 
         var winner = function() {
             $interval(moveWinner, 100, 10)
         };
 
-    //specifying which monster is going ahead
-        //runner selected
-        $scope.pickedMonsterFir = function() {
-            $scope.secondRunner = "/assets/images/runner.png";
-            $scope.firstRunner = "/assets/images/sprinter.png";
-            $scope.thirdRunner = "/assets/images/flyer.png";
-            console.log("1st", $scope.firstRunner);
-            console.log("2nd", $scope.secondRunner);
-            console.log("3rd", $scope.thirdRunner);
-        };
-        //sprinter selected
-        $scope.pickedMonsterSec = function() {
-            $scope.secondRunner = "/assets/images/sprinter.png";
-            $scope.firstRunner = "/assets/images/runner.png";
-            $scope.thirdRunner = "/assets/images/flyer.png";
-        };
-        //flyer selected
-        $scope.pickedMonsterThir = function() {
-            $scope.secondRunner = "/assets/images/flyer.png";
-            $scope.firstRunner = "/assets/images/sprinter.png";
-            $scope.thirdRunner = "/assets/images/runner.png";
-        };
+
 
 
     //http.et for threeLtr.json
@@ -242,12 +294,13 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', fu
                 $scope.numAnswered = 0;
                 $scope.numCorrect = 0;
                 incorrectWords = [];
-                firstPerc = -1;
-                secondPerc = -2;
-                thirdPerc = 1;
-                $scope.firstLeft = firstPerc + '%';
-                $scope.secondLeft = secondPerc + '%';
-                $scope.thirdLeft = thirdPerc + '%';
+                if($scope.monster == 1){
+                    $scope.pickedMonsterFir();
+                } else if($scope.monster == 2){
+                    $scope.pickedMonsterSec();
+                } else {
+                    $scope.pickedMonsterThir();
+                }
                 newWord();
             };
 
@@ -257,20 +310,19 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', fu
 
 }]);
 
-app.controller("MonsterController", ['$scope', function($scope){
-
-
-    app.config(function($routeProvider, $locationProvider){
+app.config(function($routeProvider, $locationProvider){
         $routeProvider
+            .when('/',{
+                templateUrl: '/views/pickMonster.html'
+            })
             .when('/game',{
                 templateUrl: '/views/game.html',
-                controller: 'WordController'
+                //controller: 'WordController',
+                css: '/views/gameStylesheet.css'
             })
-            .when('/pick',{
-                templateUrl: '/views/pickMonster.html'
-            });
+            .otherwise({ redirectTo: '/'});
+
+
         $locationProvider.html5Mode(true);
     });
-
-}]);
 

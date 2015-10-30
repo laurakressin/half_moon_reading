@@ -1,0 +1,105 @@
+.sky {
+    background-color: lightskyblue;
+    background-image: url("/assets/images/cloud.png");
+    background-repeat: no-repeat;
+    background-position: center -47%;
+    height: 550px;
+    position: relative;
+}
+
+.answers {
+    background-color: darkgreen;
+    postition: absolute;
+    height: 200px;
+    padding: 50px;
+}
+
+p {
+    background-color: white;
+    height: 100px;
+    width: 100px;
+    font-size: 75px;
+    text-align: center;
+}
+
+p, [class="2"] {
+    margin: auto;
+}
+
+p#correct {
+    background-color: darkgreen;
+    color: black;
+    font-size: 40px;
+}
+
+/*a {*/
+    /*height: 300px;*/
+    /*width: 300px;*/
+    /*background-color: white;*/
+/*}*/
+
+.image {
+    height: 100px;
+    bottom: -70px;
+}
+
+img {
+    display: block;
+    margin: auto;
+    height: 300px;
+
+}
+
+/*.row {*/
+    /*padding-top: 3%;*/
+    /*margin: auto;*/
+/*}*/
+
+.race {
+    background-color: black;
+    height: 165px;
+}
+
+.green {
+    height: 110px;
+    background-color: darkgreen;
+}
+
+.complete {
+    display: block;
+    margin-left: auto;
+}
+
+.completeText {
+    background-color: powderblue;
+    margin: auto;
+    height: 360px;
+    font-size: 45px;
+    text-align: center;
+}
+
+.selectedWord {
+    padding-top: 51px;
+}
+
+/*.mega {*/
+    /*font-size: 85px;*/
+/*}*/
+
+.first {
+    position: absolute;
+    top: 675px;
+    height: 140px;
+}
+
+.second {
+    position: absolute;
+    top: 730px;
+    height: 140px;
+}
+
+.third {
+    position: absolute;
+    top: 761px;
+    height: 140px;
+}

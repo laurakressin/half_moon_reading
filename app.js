@@ -15,13 +15,25 @@ app.use(express.static(__dirname + '/server/public'));
 app.use('/word', getWords);
 
 app.get('/', function(request, response){
-    response.sendFile(__dirname +'/server/public/views/pickMonster.html')
+    response.sendFile(__dirname +'/server/public/views/index.html')
+});
+
+app.get('/game', function(request, response){
+    response.sendFile(__dirname + '/server/public/views/game.html')
 });
 
 app.use(function(request, response, next){
     var err = new Error ('Not Found');
     err.status = 404;
     next(err);
+});
+
+app.use(function(err, req, res, next) {
+    if(err.status !== 404) {
+        return next();
+    }
+
+    res.send(err.message || '** no unicorns here **');
 });
 
 var server = app.listen(3000, function(){

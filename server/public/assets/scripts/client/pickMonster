@@ -3,11 +3,12 @@ var app = angular.module('PickMonster', ['ngRoute']);
 app.config(function($routeProvider, $locationProvider){
     $routeProvider
         .when('/game',{
-            templateUrl: 'views/game.html',
-            controller: 'WordController'
+            templateUrl: '/views/game.html',
+            //controller: 'WordController',
+            css: '/views/gameStylesheet.css'
         })
         .when('/pick',{
-            templateUrl: 'views/pickMonster.html'
+            templateUrl: '/views/pickMonster.html'
         });
     $locationProvider.html5Mode(true);
 });

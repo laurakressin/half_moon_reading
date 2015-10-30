@@ -1,68 +1,52 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="TheTripApp">
-<head>
-    <meta charset="UTF-8">
-    <script src="/vendor/jquery/dist/jquery.min.js"></script>
-    <link href="/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/vendor/angular/angular.min.js"></script>
-    <script src="/vendor/angular-route/angular-route.min.js"></script>
-    <script src="/assets/scripts/app.min.js"></script>
-    <script src="/assets/scripts/client/pickMonster"></script>
-    <script src="/assets/scripts/client/TheTrip.js"></script>
-    <link href="/views/gameStylesheet.css" rel="stylesheet">
-    <title></title>
-</head>
-<body ng-controller="WordController">
-    <div class="sky">
-        <div ng-show="!isComplete(numAnswered)">
-            <div class="selectedWord row">
-                <div class="col-md-1 col-md-offset-4">
-                    <p class="0">{{word[0]}}</p>
-                </div>
-                <div class="col-md-2">
-                    <p class="1">{{word[1]}}</p>
-                </div>
-                <div class="col-md-1">
-                    <p class="2">{{word[2]}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="image row col-md-12" ng-show="!isComplete(numAnswered)">
-            <img ng-src="/assets{{image}}">
-        </div>
-        <div class="complete row" ng-show="isComplete(numAnswered)">
-            <div class="completeText">
-                <div class="mega">Congratulations, you {{success}}!!</div><br>Good job trying your best!<br>Do you want to play again?
-                <div class="row">
-                    <a href="/views/pickMonster.html"><button class="done"><span class="glyphicon glyphicon-remove"></span>I'm done.</button></a>
-                    <button ng-click="again()"><span class="glyphicon glyphicon-play"></span>Play again!</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="answers row">
-        <div ng-show="!isComplete(numAnswered)">
-            <div class="col-md-2 col-md-offset-3">
-                <p id="0" ng-click="correctCounter(shuffledArray[0])">{{shuffledArray[0]}}</p>
+<div class="sky">
+    <div ng-show="!isComplete(numAnswered)">
+        <div class="selectedWord row">
+            <div class="col-md-1 col-md-offset-4">
+                <p class="0">{{word[0]}}</p>
             </div>
             <div class="col-md-2">
-                <p id="1" ng-click="correctCounter(shuffledArray[1])">{{shuffledArray[1]}}</p>
+                <p class="1">{{word[1]}}</p>
             </div>
-            <div class="col-md-2">
-                <p id="2" ng-click="correctCounter(shuffledArray[2])">{{shuffledArray[2]}}</p>
-            </div>
-            <div class="col-md-1 col-md-offset-2">
-                <p id="correct">{{numCorrect}}/15</p>
-
+            <div class="col-md-1">
+                <p class="2">{{word[2]}}</p>
             </div>
         </div>
     </div>
-    <div class="race">
-        <img class="first" src={{firstRunner}} ng-style="{'left': firstLeft}">
-        <img class="second" src="{{secondRunner}} ng-style="{'left': secondLeft}">
-        <img class="third" src={{thirdRunner}} ng-style="{'left': thirdLeft}">
+    <div class="image row col-md-12" ng-show="!isComplete(numAnswered)">
+        <img ng-src="/assets{{image}}">
     </div>
-</body>
-</html>
+    <div class="complete row" ng-show="isComplete(numAnswered)">
+        <div class="completeText">
+            <div class="mega">Congratulations, you {{success}}!!</div><br>Good job trying your best!<br>Do you want to play again?
+            <div class="row">
+                <a href="/"><button class="done"><span class="glyphicon glyphicon-remove"></span>I'm done.</button></a>
+                <button ng-click="again()"><span class="glyphicon glyphicon-play"></span>Play again!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="answers row">
+    <div ng-show="!isComplete(numAnswered)">
+        <div class="col-md-2 col-md-offset-3">
+            <p id="0" ng-click="correctCounter(shuffledArray[0])">{{shuffledArray[0]}}</p>
+        </div>
+        <div class="col-md-2">
+            <p id="1" ng-click="correctCounter(shuffledArray[1])">{{shuffledArray[1]}}</p>
+        </div>
+        <div class="col-md-2">
+            <p id="2" ng-click="correctCounter(shuffledArray[2])">{{shuffledArray[2]}}</p>
+        </div>
+        <div class="col-md-1 col-md-offset-2">
+            <p id="correct">{{numCorrect}}/15</p>
+
+        </div>
+    </div>
+</div>
+<div class="race">
+    <img class="first" ng-src="{{firstRunner}}" ng-style="{'left': firstLeft, 'height': firstHeight, 'top': firstTop}">
+    <img class="second" ng-src="{{secondRunner}}" ng-style="{'left': secondLeft, 'height': secondHeight, 'top': secondTop}">
+    <img class="third" ng-src="{{thirdRunner}}" ng-style="{'left': thirdLeft, 'height': thirdHeight, 'top': thirdTop}">
+</div>
+<div class = "green">
+</div>
