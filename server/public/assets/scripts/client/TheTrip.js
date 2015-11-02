@@ -9,7 +9,7 @@ app.controller("WordController", ['$scope', '$http', '$timeout', '$interval', '$
     var vowelArray = ["a", "e", "i", "o", "u"];
 
     //number of questions asked in round
-    $scope.numAsked = 5;
+    $scope.numAsked = 20;
 
     //empty array to store used indexes
     var incorrectWords = [];

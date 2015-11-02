@@ -1,3 +1,11 @@
+img#logo {
+    width: 100px;
+    margin: auto;
+    display: block;
+    float: left;
+
+}
+
 html, body {
     height: 100%;
     background-color: darkgreen;
@@ -103,4 +111,10 @@ img {
     position: absolute;
     top: 81%;
     height: 12%;
+}
+
+.logo {
+    width: 100px;
+    margin: auto;
+    display: block;
 }

@@ -1,3 +1,7 @@
+body {
+    font-family: 'Didact Gothic', sans-serif;
+}
+
 .sky {
     background-color: lightskyblue;
     background-image: url("/assets/images/cloud.png");
@@ -8,18 +12,20 @@
 }
 
 .answers {
-    background-color: darkgreen;
+    /*background: url("/assets/images/grassfield.jpg");*/
     postition: absolute;
     height: 200px;
     padding: 50px;
+    box-shadow: inset 0 10px 100px 2px rgba(0,0,0,0.4);
 }
 
 p {
-    background-color: white;
     height: 100px;
     width: 100px;
     font-size: 75px;
     text-align: center;
+    border-radius: 20px;
+    color: black;
 }
 
 p, [class="2"] {
@@ -27,7 +33,7 @@ p, [class="2"] {
 }
 
 p#correct {
-    background-color: darkgreen;
+    background-color: transparent;
     color: black;
     font-size: 40px;
 }
@@ -56,13 +62,21 @@ img {
 /*}*/
 
 .race {
-    background-color: black;
+    background: url("/assets/images/blacktop.jpg");
     height: 165px;
+    box-shadow: 10px 10px 100px black;
+}
+
+.finish {
+    height: 165px;
+    float: right;
+    margin-right: 60px;
 }
 
 .green {
     height: 110px;
-    background-color: darkgreen;
+    /*background: url("/assets/images/grassfield.jpg");*/
+    box-shadow: inset 0px 12px 59px -17px black;
 }
 
 .complete {
@@ -71,7 +85,6 @@ img {
 }
 
 .completeText {
-    background-color: powderblue;
     margin: auto;
     height: 360px;
     font-size: 45px;
@@ -102,4 +115,59 @@ img {
     position: absolute;
     top: 761px;
     height: 140px;
+}
+
+.col-md-12 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h2 {
+    text-align: center;
+    font-size: 60px;
+    color: black;
+}
+
+body {
+    background: url("/assets/images/grassfield.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.night {
+    background-image: url("/assets/images/skyphoto.jpg");
+}
+
+.heading {
+    font-family: 'Amatic SC', cursive;
+    font-size: 175px;
+    float: left;
+    color: black;
+    margin-left: auto;
+}
+
+h1.heading {
+    padding-bottom: 20px;
+    color: black;
+}
+
+img#logo {
+    float: left;
+    height: 240px;
+}
+
+
+.mega {
+    font-size: 95px;
+    margin: 2%;
+}
+
+h1 {
+    color: black;
+    font-size: 75px;
+}
+
+.pick {
+    height: 200px;
+    bottom: 10%;
 }
